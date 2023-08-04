@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Htmx.Oob;
 
@@ -22,7 +24,17 @@ public static class Extensions
 
     public static PartialViewResult OobView(this Controller controller, HtmxOobBuilder model)
     {
-        return controller.PartialView("OobView", model);
+	    var vd = new ViewDataDictionary(controller.ViewData);
+	    vd.Model = model;
+
+        var pv = new PartialViewResult()
+        {
+            ViewName = "OobView",
+            ViewData = vd,
+            TempData = controller.TempData
+        };
+
+        return pv;
     }
 
     public static PartialViewResult OobView(this PageModel pageModel, HtmxOobBuilder model)
