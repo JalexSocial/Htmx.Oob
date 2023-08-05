@@ -7,7 +7,7 @@ public class HtmxOobBuilder
 {
     public List<IOobItem> OobItems { get; init; }
 
-    public object? MainResult { get; init; }
+    public object? MainResult { get; set; }
 
     public HtmxOobBuilder()
     {
@@ -25,7 +25,13 @@ public class HtmxOobBuilder
         MainResult = main;
     }
 
-    public HtmxOobBuilder AddPartial(string partial, string swap = "true")
+    public HtmxOobBuilder AddMainResult(PartialViewResult main)
+    {
+		MainResult = main;
+		return this;
+    }
+
+	public HtmxOobBuilder AddPartial(string partial, string swap = "true")
     {
         OobItems.Add(new OobPartial(partial, null, swap));
         return this;

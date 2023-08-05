@@ -24,13 +24,13 @@ public static class Extensions
 
     public static PartialViewResult OobView(this Controller controller, HtmxOobBuilder model)
     {
-	    var vd = new ViewDataDictionary(controller.ViewData);
-	    vd.Model = model;
-
-        var pv = new PartialViewResult()
+		var pv = new PartialViewResult()
         {
             ViewName = "OobView",
-            ViewData = vd,
+            ViewData = new ViewDataDictionary(controller.ViewData)
+            {
+	            Model = model
+            },
             TempData = controller.TempData
         };
 
